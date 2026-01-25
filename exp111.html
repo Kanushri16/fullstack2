@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.box{
+    border:2px solid #000;
+    padding:30px 50px;
+    background:#f0f0f0;
+    border-radius:8px;
+    text-align:center;
+}
+
+h2{ font-size:26px; }
+
+label{ font-size:18px; }
+
+input{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    font-size:17px;
+}
+
+small{
+    color:red;
+    display:block;
+    margin-bottom:12px;
+    font-size:14px;
+}
+
+button{
+    background:red;
+    color:white;
+    border:none;
+    padding:14px 45px;
+    font-size:20px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+#success{
+    color:green;
+    font-weight:bold;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+<div class="box">
+<form id="regForm">
+<h2>Student Registration</h2>
+
+<label>Full Name</label>
+<input type="text" required minlength="2" maxlength="50" pattern="[A-Za-z ]+">
+<small>Must contain 2–50 letters</small>
+
+<label>Email</label>
+<input type="email" required>
+<small>Valid email required</small>
+
+<label>Age</label>
+<input type="number" min="16" max="30" required>
+<small>Age 16–30 only</small>
+
+<button type="submit">Register</button>
+
+<p id="success"></p>
+</form>
+</div>
+
+<script>
+document.getElementById("regForm").addEventListener("submit", function(e){
+    e.preventDefault(); 
+
+    document.getElementById("success").innerText =
+        "Successfully Registered👍";
+
+    this.reset(); 
+});
+</script>
+
+</body>
+</html>
