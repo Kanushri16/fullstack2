@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Filter - React</title>
+
+    <!-- React CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fcf9f8;
+            padding: 40px;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        select {
+            padding: 12px;
+            font-size: 16px;
+            width: 250px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .price {
+            font-size: 22px;
+            margin: 10px 0 15px;
+        }
+
+        .badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            color: white;
+            display: inline-block;
+        }
+
+        .electronics {
+            background: #2563eb;
+        }
+
+        .clothing {
+            background: #93c5fd;
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+function App() {
+    const [filter, setFilter] = React.useState("all");
+
+    const products = [
+        { name: "Wireless Headphones", price: "$129.99", category: "electronics" },
+        { name: "Cotton T-Shirt", price: "$24.99", category: "clothing" },
+        { name: "Bluetooth Speaker", price: "$89.99", category: "electronics" },
+        { name: "Denim Jeans", price: "$59.99", category: "clothing" }
+    ];
+
+    const filteredProducts =
+        filter === "all"
+            ? products
+            : products.filter(p => p.category === filter);
+
+    return (
+        <div>
+            <h1>Product Filter</h1>
+
+            <div className="filter-row">
+                <strong>Filter by:</strong>
+                <select onChange={e => setFilter(e.target.value)}>
+                    <option value="all">All Products</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                </select>
+            </div>
+
+            <div className="grid">
+                {filteredProducts.map((product, index) => (
+                    <div className="card" key={index}>
+                        <h2>{product.name}</h2>
+                        <div className="price">{product.price}</div>
+                        <span className={`badge ${product.category}`}>
+                            {product.category}
+                        </span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+
+</body>
+</html>
