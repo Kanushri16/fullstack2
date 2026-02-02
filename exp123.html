@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drawing Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            border-radius:10px;
+        }
+
+        svg {
+            border: 2px dashed #aaa;
+            width: 80vw;
+            height: 60vh;
+            margin: auto;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    
+    <button onclick="undo()">Undo</button>
+
+    <svg id="canvas"></svg>
+
+    <h3>Circles drawn: <span id="count">0</span></h3>
+
+    <script>
+        const svg = document.getElementById("canvas");
+        const countText = document.getElementById("count");
+        let circles = [];
+
+        svg.addEventListener("click", function (e) {
+            const rect = svg.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            const circle = document.createElementNS(
+                "http://www.w3.org/2000/svg",
+                "circle"
+            );
+
+            circle.setAttribute("cx", x);
+            circle.setAttribute("cy", y);
+            circle.setAttribute("r", 8);
+            circle.setAttribute("fill", "dodgerblue");
+
+            svg.appendChild(circle);
+            circles.push(circle);
+
+            countText.innerText = circles.length;
+        });
+
+        function undo() {
+            if (circles.length > 0) {
+                const lastCircle = circles.pop();
+                svg.removeChild(lastCircle);
+                countText.innerText = circles.length;
+            }
+        }
+    </script>
+
+</body>
+</html>
